@@ -32,12 +32,9 @@ def update(connect):
     cur = connect.cursor()
     parced_table = parcer.parce(parcer.get_html(parcer.url))
 
-    i = 1
-
     for hero_stats in parced_table:
         print(hero_stats)
-        sql_command = f"UPDATE {parcer.db} SET picks = {hero_stats['picks']}, wins = {hero_stats['wins']}, winrate = {hero_stats['winrate']}, pickrate = {hero_stats['pickrate']} WHERE id = {i}"
-        i += 1
+        sql_command = f"UPDATE {parcer.db} SET picks = {hero_stats['picks']}, wins = {hero_stats['wins']}, winrate = {hero_stats['winrate']}, pickrate = {hero_stats['pickrate']} WHERE heroname_as_dotaname = '{hero_stats['heroname_as_dotaname']}'"
         cur.execute(sql_command)
         con.commit()
 
